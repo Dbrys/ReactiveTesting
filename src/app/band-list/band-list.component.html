@@ -1,7 +1,7 @@
 <h2>Bands</h2>
 <div class="row" *ngIf="bandList$ | async as bandList" >
     <div class="form-group">
-        <button class="btn btn-primary" type="button" (click)="refreshDataClickSubject.next()">Refresh</button>
+        <button class="btn btn-primary"[disabled]="bandList.isTriggered" type="button" (click)="refreshDataClickSubject.next()">Refresh</button>
     </div>
     <table class="table">
         <thead>
@@ -12,6 +12,9 @@
             </tr>
         </thead>
         <tbody>
+            <tr *ngIf= "bandList.isTriggered">
+                <td colspan="3">Loading...</td>
+            </tr>
             <tr *ngFor="let band of bandList.band">
                 <td>{{ band.name }}</td>
                 <td>{{ band.formationYear }}</td>
